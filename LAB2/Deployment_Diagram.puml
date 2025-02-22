@@ -1,0 +1,35 @@
+@startuml
+title Deployment Diagram for Kursach V8 2.5L Twin-Turbo GT3S (Future Functionality)
+
+node "Data Processing Server" {
+  artifact "Obfuscated-MalMem2022.csv\n(Raw Data)" as CSV
+  artifact "CourseWork_ver7.ipynb\n(Data Preprocessing)" as Notebook
+}
+
+node "Model & Inference Server" {
+  artifact "malware_detection_model.h5\n(ML Model)" as Model
+  artifact "Inference Engine" as Inference
+  artifact "Feedback Loop\n(Model Retraining)" as Feedback
+}
+
+node "Data Storage & Monitoring Server" {
+  artifact "Data Storage\n(Processed Data & Logs)" as Storage
+  artifact "Monitoring & Logging" as Monitor
+}
+
+node "Web Server" {
+  artifact "User Interface / API" as UI
+}
+
+' Define communications between nodes
+CSV --> Notebook : Feeds raw data
+Notebook --> Storage : Saves processed data & logs
+Notebook --> Model : Trains/Updates model
+Model --> Inference : Provides predictions
+UI --> Inference : Sends prediction requests
+Inference --> Monitor : Logs prediction details
+Monitor --> Feedback : Triggers retraining events
+Feedback --> Model : Updates model based on new training
+UI --> Feedback : (Optional) User feedback for retraining
+
+@enduml
