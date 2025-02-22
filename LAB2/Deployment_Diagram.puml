@@ -1,35 +1,54 @@
 @startuml
 title Deployment Diagram for Kursach V8 2.5L Twin-Turbo GT3S (Future Functionality)
 
+skinparam linetype ortho
+skinparam dpi 150
+skinparam padding 20
+skinparam nodesep 50
+skinparam ranksep 50
+
+'----------------------------
+' Data Processing Server
+'----------------------------
 node "Data Processing Server" {
-  artifact "Obfuscated-MalMem2022.csv\n(Raw Data)" as CSV
+  database "Obfuscated-MalMem2022.csv\n(Raw Data)" as CSV
   artifact "CourseWork_ver7.ipynb\n(Data Preprocessing)" as Notebook
 }
 
+'----------------------------
+' Model & Inference Server
+'----------------------------
 node "Model & Inference Server" {
   artifact "malware_detection_model.h5\n(ML Model)" as Model
   artifact "Inference Engine" as Inference
-  artifact "Feedback Loop\n(Model Retraining)" as Feedback
+  database "Feedback Loop\n(Model Retraining)" as Feedback
 }
 
+'----------------------------
+' Data Storage & Monitoring Server
+'----------------------------
 node "Data Storage & Monitoring Server" {
-  artifact "Data Storage\n(Processed Data & Logs)" as Storage
-  artifact "Monitoring & Logging" as Monitor
+  database "Data Storage\n(Processed Data & Logs)" as Storage
+  process "Monitoring & Logging" as Monitor
 }
 
+'----------------------------
+' Web Server
+'----------------------------
 node "Web Server" {
   artifact "User Interface / API" as UI
 }
 
-' Define communications between nodes
-CSV --> Notebook : Feeds raw data
-Notebook --> Storage : Saves processed data & logs
-Notebook --> Model : Trains/Updates model
-Model --> Inference : Provides predictions
-UI --> Inference : Sends prediction requests
-Inference --> Monitor : Logs prediction details
-Monitor --> Feedback : Triggers retraining events
-Feedback --> Model : Updates model based on new training
-UI --> Feedback : (Optional) User feedback for retraining
-
+'----------------------------
+' Data Flow Connections
+'----------------------------
+CSV -right-> Notebook : Provides raw data
+Notebook -down-> Storage : Saves processed data
+Notebook -right-> Model : Trains/Updates model
+Model -down-> Inference : Loaded for predictions
+UI -down-> Inference : Sends prediction requests
+Inference -down-> Monitor : Logs prediction details
+Monitor -left-> Feedback : Triggers retraining alerts
+Feedback -up-> Model : Updates model with new training
+UI -down-> Feedback : (Optional) User feedback for retraining
 @enduml
