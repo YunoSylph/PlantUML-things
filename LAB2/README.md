@@ -56,82 +56,61 @@ The data flows between components are as follows:
    - The **Feedback Loop** updates the **ML Model** with new training based on these alerts and any provided user feedback.
 
 
-# Deployment Diagram for Kursach V8 2.5L Twin-Turbo GT3S (Future Functionality)
+# Deployment Diagram for Kursach V8 2.5L Twin-Turbo GT3S
 
-This document provides an overview of the deployment architecture for the Kursach V8 2.5L Twin-Turbo GT3S project. The diagram illustrates how various components are distributed across physical nodes (servers) and details the interactions between them. It includes both core components and additional modules planned for future functionality.
+this document provides an overview of the deployment diagram defined below. the diagram outlines the architecture and data flow for future functionality of the kursach system.
 
-## Overview
+## overview
 
-The system is deployed across four main servers:
+the diagram comprises four main nodes:
+- data processing server
+- model & inference server
+- data storage & monitoring server
+- web server
 
-- **Data Processing Server:**  
-  Hosts the raw data and data preprocessing artifacts.
-  
-- **Model & Inference Server:**  
-  Contains the trained machine learning model, the inference engine, and the feedback loop for model retraining.
-  
-- **Data Storage & Monitoring Server:**  
-  Manages storage for processed data and logs, and monitors system performance.
-  
-- **Web Server:**  
-  Provides the user interface or API endpoints for external interactions.
+each node hosts specific components (databases, artifacts, processes) that interact to process raw data, train and update the machine learning model, handle predictions, and manage user interactions.
 
-## Components Description
+## components
 
-### Data Processing Server
-- **Obfuscated-MalMem2022.csv (Raw Data):**  
-  Contains the raw, obfuscated malware data.
-- **CourseWork_ver7.ipynb (Data Preprocessing):**  
-  A Jupyter Notebook responsible for cleaning, transforming, and preparing raw data for model training.
+### data processing server
 
-### Model & Inference Server
-- **malware_detection_model.h5 (ML Model):**  
-  The trained machine learning model used for making predictions.
-- **Inference Engine:**  
-  Loads the ML model and handles real-time prediction requests.
-- **Feedback Loop (Model Retraining):**  
-  Triggers model retraining based on performance metrics and user feedback to ensure the model stays current.
+- **raw data**: `Obfuscated-MalMem2022.csv` (raw data)
+- **data preprocessing**: `CourseWork_ver7.ipynb` (data preprocessing)
 
-### Data Storage & Monitoring Server
-- **Data Storage (Processed Data & Logs):**  
-  Archives processed data and logs for auditing purposes and to support future retraining.
-- **Monitoring & Logging:**  
-  Monitors prediction details and overall system performance, generating alerts as needed.
+this node handles initial data processing by reading raw data from the csv file and preprocessing it using the jupyter notebook.
 
-### Web Server
-- **User Interface / API:**  
-  Provides endpoints for users to submit prediction requests and optionally send feedback to enhance model performance.
+### model & inference server
 
-## Data Flow and Interactions
+- **ml model**: `malware_detection_model.h5` (ml model)
+- **inference engine**: for generating predictions
+- **feedback loop**: a database used for model retraining
 
-1. **Raw Data Processing:**
-   - The `Obfuscated-MalMem2022.csv` file feeds raw data into the `CourseWork_ver7.ipynb` for preprocessing.
-   
-2. **Data Archiving and Model Training:**
-   - The preprocessed data and logs are saved to the `Data Storage` component.
-   - Processed data is used to train or update the `malware_detection_model.h5`.
+this node is responsible for training/updating the model and serving predictions through the inference engine.
 
-3. **Inference:**
-   - The trained model is loaded by the `Inference Engine`, which provides real-time predictions.
-   - User prediction requests are received via the `User Interface / API`.
+### data storage & monitoring server
 
-4. **Monitoring and Feedback:**
-   - The `Inference Engine` sends prediction details to the `Monitoring & Logging` component.
-   - Alerts from monitoring trigger the `Feedback Loop`, which then initiates model retraining.
-   - Additionally, user feedback can be sent from the UI to the feedback loop to further refine the model.
+- **data storage**: stores processed data & logs
+- **monitoring & logging**: process that records prediction details
 
-## Future Functionality Considerations
+this node saves processed data and logs prediction activity, triggering alerts for model retraining through the feedback loop.
 
-- **Continuous Monitoring:**  
-  The system will continuously monitor performance and log detailed prediction data to facilitate proactive maintenance.
-  
-- **Automated Retraining:**  
-  The feedback loop ensures the model is retrained automatically when performance issues or data drift are detected.
-  
-- **Data Archiving:**  
-  Long-term storage of processed data and logs supports compliance, auditing, and iterative improvements to the model.
+### web server
+
+- **user interface / api**: handles prediction requests and optional user feedback
+
+this node serves as the frontend, enabling users to interact with the system.
+
+## data flow
+
+the data flows through the system as follows:
+- the csv file provides raw data to the jupyter notebook
+- the notebook saves processed data to the data storage
+- the notebook trains/updates the ml model
+- the trained model is loaded into the inference engine for predictions
+- the user interface sends prediction requests to the inference engine
+- the inference engine logs prediction details to the monitoring process
+- the monitoring process triggers retraining alerts in the feedback loop
+- the feedback loop updates the model with new training data
+- optionally, the user interface sends user feedback to the feedback loop
 
 ![Component_Diagram](Deployment_Diagram.png)
-## Conclusion
-
-This deployment diagram outlines the physical distribution and interactions of the components within the Kursach V8 2.5L Twin-Turbo GT3S project. It provides a clear view of how raw data is processed, how the model is trained and deployed, and how the system integrates future functionality such as monitoring and automated retraining, ensuring scalability and robustness in real-world operations.
