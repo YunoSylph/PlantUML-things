@@ -1,33 +1,33 @@
 @startuml
 
 class Analyzer {
-    + analyze(Program p): Report
++ analyze(Program p): Report
 }
 
 class Program {
-    + name: String
-    + behaviorLogs: List<String>
-    + getBehavior(): List<String>
++ name: String
++ behaviorLogs: List
++ getBehavior(): List
 }
 
 class Report {
-    + isMalicious: Boolean
-    + threatsDetected: List<String>
++ isMalicious: Boolean
++ threatsDetected: List
 }
 
-class Rule {
-    + description: String
-    + check(Program p): Boolean
+abstract class Rule {
++ description: String
++ check(Program p): Boolean
 }
 
 class SignatureBasedRule {
-    + signatures: List<String>
-    + check(Program p): Boolean
++ signatures: List
++ check(Program p): Boolean
 }
 
 class BehaviorBasedRule {
-    + behaviorPatterns: List<String>
-    + check(Program p): Boolean
++ behaviorPatterns: List
++ check(Program p): Boolean
 }
 
 Analyzer --> Program
