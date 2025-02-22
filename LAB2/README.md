@@ -1,68 +1,59 @@
-# Component Diagram for Kursach V8 2.5L Twin-Turbo GT3S
+# Future Functionality Component Diagram for Kursach V8 2.5L Twin-Turbo GT3S
 
-This document provides an overview of the component diagram for the Kursach V8 2.5L Twin-Turbo GT3S project. The diagram illustrates both the current system components and planned future enhancements aimed at improving scalability, maintainability, and continuous improvement.
+This document provides an overview of the system architecture as depicted in the component diagram. The diagram illustrates both the current components and planned future functionalities, focusing on data processing, machine learning model training, inference, and continuous improvement through monitoring and retraining.
 
-## Component Diagram Overview
+## Diagram Overview
 
-The diagram is divided into two groups of components:
+The diagram is generated using PlantUML and represents the following key components:
 
-1. **Existing Components:**
-   - **Obfuscated-MalMem2022.csv (Raw Data):**  
-     This file contains raw, obfuscated malware data used as the input for the system.
-   - **CourseWork_ver7.ipynb (Data Preprocessing):**  
-     A Jupyter Notebook responsible for cleaning, preparing, and transforming raw data into a format suitable for training.
-   - **malware_detection_model.h5 (ML Model):**  
-     The machine learning model trained on the processed data.
-   - **Inference Engine:**  
-     Loads the trained model to perform predictions on incoming data.
-   - **User Interface / API:**  
-     Provides an interface for users or external systems to send prediction requests and, optionally, provide feedback.
-   - **Data Storage (Processed Data & Logs):**  
-     Stores the processed data and logs generated during preprocessing, which can be used for audits or further training.
-   - **Monitoring & Logging:**  
-     Captures detailed logs of predictions and system performance, facilitating error tracking and performance monitoring.
-   - **Feedback Loop (Model Retraining):**  
-     Uses monitoring alerts and user feedback to trigger retraining of the model, ensuring that the system remains effective as new data becomes available.
+- **Obfuscated-MalMem2022.csv (Raw Data):**
+  Represented as a database, this file contains the raw, obfuscated malware data that serves as the initial input to the system.
 
-# Detailed Component Descriptions
+- **CourseWork_ver7.ipynb (Data Preprocessing):**  
+  A component that preprocesses the raw data. It cleans and transforms the data, making it ready for model training.
 
-Obfuscated-MalMem2022.csv (Raw Data):
-Serves as the entry point of data. It contains raw, obfuscated information that forms the basis of the analysis and training processes.
+- **malware_detection_model.h5 (ML Model):**  
+  This component represents the machine learning model (stored as an H5 file) that is trained on the preprocessed data.
 
-CourseWork_ver7.ipynb (Data Preprocessing):
-A Jupyter Notebook that processes the raw data. It cleans, transforms, and extracts features necessary for effective model training. It also saves the processed data for record-keeping.
+- **Inference Engine:**  
+  Responsible for loading the trained model and providing real-time predictions based on new input data.
 
-malware_detection_model.h5 (ML Model):
-The machine learning model that is trained using the processed data. This model is updated over time to improve prediction accuracy.
+- **User Interface / API:**  
+  Provides an interface through which users or external systems can send prediction requests and, optionally, feedback for further improvements.
 
-Inference Engine:
-Uses the trained ML model to make predictions on new data. It receives prediction requests from the User Interface / API.
+- **Data Storage (Processed Data & Logs):**  
+  A component that saves the processed data and logs generated during data preprocessing, useful for audits and further model training.
 
-User Interface / API:
-Provides a user-facing endpoint for submitting data for prediction and optionally feeding back performance insights.
+- **Feedback Loop (Model Retraining):**  
+  Depicted as a database, this component handles retraining of the model when triggered by alerts or user feedback, ensuring the model stays up-to-date.
 
-Data Storage (Processed Data & Logs):
-Stores the outputs of the data preprocessing stage as well as logs generated during system operation. This is crucial for audits, debugging, and retraining.
+- **Monitoring & Logging:**  
+  Represented as a process, this component logs the details of predictions and overall system performance, triggering retraining alerts when necessary.
+![Components](Component_Diagram.png)
+## Data Flow
 
-Monitoring & Logging:
-Collects detailed logs and monitors system performance. This component generates alerts when the system's performance degrades or anomalies are detected.
+The data flows between components are as follows:
 
-Feedback Loop (Model Retraining):
-Uses alerts from the monitoring system and user feedback to trigger retraining of the ML model, ensuring that the model remains current and effective.
+1. **Raw Data Ingestion:**  
+   - **Obfuscated-MalMem2022.csv** feeds raw data into the **CourseWork_ver7.ipynb** component.
 
-![Component_Diagram](Component_Diagram.png)
-# Data Flow Overview
+2. **Data Preprocessing:**  
+   - The **Notebook** component processes the raw data.
+   - Processed data is saved in **Data Storage**.
+   - Processed data is also used to train or update the **ML Model**.
 
-Raw Data Input:
-The system starts with the Obfuscated-MalMem2022.csv component, which supplies raw malware data to the CourseWork_ver7.ipynb component.
-Data Preprocessing:
-The notebook processes the raw data, transforming it into a format suitable for model training. The processed data is also saved into the Data Storage component.
-Model Training/Update:
-The preprocessed data is used to train or update the machine learning model stored as malware_detection_model.h5.
-Inference:
-The trained model is loaded by the Inference Engine to perform predictions. Prediction requests are received via the User Interface / API.
-Monitoring and Feedback:
-The Inference Engine sends log data to the Monitoring & Logging component, which in turn triggers the Feedback Loop for retraining the model based on performance alerts and user feedback.
+3. **Model Training and Inference:**  
+   - The **ML Model** is updated/trained using the processed data.
+   - The trained model is loaded by the **Inference Engine** to serve predictions.
+
+4. **User Interaction:**  
+   - **User Interface / API** sends prediction requests to the **Inference Engine**.
+   - Optionally, it also sends user feedback to the **Feedback Loop**.
+
+5. **Monitoring and Feedback Loop:**  
+   - The **Inference Engine** logs prediction details to **Monitoring & Logging**.
+   - The **Monitoring & Logging** process triggers retraining alerts to the **Feedback Loop**.
+   - The **Feedback Loop** updates the **ML Model** with new training based on these alerts and any provided user feedback.
 
 
 # Deployment Diagram for Kursach V8 2.5L Twin-Turbo GT3S (Future Functionality)
