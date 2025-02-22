@@ -1,0 +1,39 @@
+@startuml
+
+class Analyzer {
+    + analyze(Program p): Report
+}
+
+class Program {
+    + name: String
+    + behaviorLogs: List<String>
+    + getBehavior(): List<String>
+}
+
+class Report {
+    + isMalicious: Boolean
+    + threatsDetected: List<String>
+}
+
+class Rule {
+    + description: String
+    + check(Program p): Boolean
+}
+
+class SignatureBasedRule {
+    + signatures: List<String>
+    + check(Program p): Boolean
+}
+
+class BehaviorBasedRule {
+    + behaviorPatterns: List<String>
+    + check(Program p): Boolean
+}
+
+Analyzer --> Program
+Analyzer --> Report
+Analyzer --> Rule
+Rule <|-- SignatureBasedRule
+Rule <|-- BehaviorBasedRule
+
+@enduml
