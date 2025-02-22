@@ -1,17 +1,16 @@
+
 @startuml
 title Future Functionality Component Diagram for Kursach V8 2.5L Twin-Turbo GT3S
 
 ' Existing Components
-component "Obfuscated-MalMem2022.csv\n(Raw Data)" as CSV
+database "Obfuscated-MalMem2022.csv\n(Raw Data)" as CSV
 component "CourseWork_ver7.ipynb\n(Data Preprocessing)" as Notebook
 component "malware_detection_model.h5\n(ML Model)" as Model
 component "Inference Engine" as Inference
 component "User Interface / API" as UI
-
-' New Future Components
 component "Data Storage\n(Processed Data & Logs)" as Storage
-component "Feedback Loop\n(Model Retraining)" as Feedback
-component "Monitoring & Logging" as Monitor
+database "Feedback Loop\n(Model Retraining)" as Feedback
+process "Monitoring & Logging" as Monitor
 
 ' Data Flow Connections
 CSV --> Notebook : Provides raw data
