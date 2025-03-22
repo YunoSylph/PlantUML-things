@@ -1,0 +1,63 @@
+@startuml
+title Use Case Diagram for Kursach V8 2.5L Twin-Turbo GT3S (With Planned Functionality)
+
+left to right direction
+skinparam linetype polyline
+
+actor "User" as User
+actor "Administrator" as Admin
+
+rectangle System {
+    
+    ' ----------------------------
+    ' Core Functionalities
+    ' ----------------------------
+    usecase "Upload Raw Data" as UC1
+    usecase "Preprocess Data" as UC2
+    usecase "Train Model" as UC3
+    usecase "Save Trained Model" as UC4
+    usecase "Request Prediction" as UC5
+    usecase "Receive Prediction Result" as UC6
+    
+    ' ----------------------------
+    ' Future Enhancements
+    ' ----------------------------
+    usecase "Monitor Model Performance" as UC7
+    usecase "Trigger Retraining on Performance Drop" as UC8
+    usecase "Provide Feedback on Prediction" as UC9
+    usecase "Trigger Retraining from Feedback" as UC10
+    usecase "Review Logs and System Insights" as UC11
+    usecase "Manage Data Storage" as UC12
+}
+
+' ----------------------------
+' User Interaction (Rounded Lines)
+' ----------------------------
+User --> UC1
+User --> UC5
+User --> UC6
+User --> UC9
+
+' ----------------------------
+' Administrator Interaction (Rounded Lines)
+' ----------------------------
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC7
+Admin --> UC8
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+
+' ----------------------------
+' Use Case Relationships (Rounded Lines)
+' ----------------------------
+UC2 --> UC3 : <<includes>>
+UC3 --> UC4 : <<includes>>
+UC5 --> UC6 : <<includes>>
+UC7 --> UC8 : <<includes>>
+UC9 --> UC10 : <<includes>>
+UC11 --> UC12 : <<extends>>
+
+@enduml
