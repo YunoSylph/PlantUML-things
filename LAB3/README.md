@@ -450,8 +450,7 @@ This refined **Sequence Diagram** effectively visualizes the interactions betwee
 
 
 ## 4. Use Case Diagram
-
-# Use Case Diagram for Kursach V8 2.5L Twin-Turbo GT3S (With Planned Functionality)
+# Use Case Diagram for Kursach V8 2.5L Twin-Turbo GT3S
 
 This document explains the **Use Case Diagram** for the **Kursach V8 2.5L Twin-Turbo GT3S** project. The diagram outlines the system's core functionalities along with planned enhancements, designed with smooth rounded lines to improve readability and ensure a professional visual flow.
 
@@ -485,13 +484,28 @@ The **Administrator** manages core system functionalities like data preprocessin
 
 ---
 
-## Planned Future Functionalities (Enhanced System Behavior)
+## Planned Future Functionalities
 ✅ **Monitor Model Performance:** Admins track model performance metrics to detect accuracy degradation.  
 ✅ **Trigger Retraining on Performance Drop:** Admins initiate retraining when performance issues arise.  
 ✅ **Provide Feedback on Prediction:** Users provide feedback regarding prediction quality.  
 ✅ **Trigger Retraining from Feedback:** Admins or automated logic initiate retraining based on user feedback.  
 ✅ **Review Logs and System Insights:** Admins review system logs and model insights for performance analysis.  
-✅ **Manage Data Storage:** Admins control data archiving and retrieval to ensure organized data management
+✅ **Manage Data Storage:** Admins control data archiving and retrieval to ensure organized data management.
 
+![Component_Diagram](UseCase_diagram.png)
+
+## Use Case Relationships
+### **Includes Relationships**  
+- **`Preprocess Data` → `Train Model` (<<includes>>):** Data must be processed before model training.  
+- **`Train Model` → `Save Trained Model` (<<includes>>):** Saving the model follows immediately after training.  
+- **`Request Prediction` → `Receive Prediction Result` (<<includes>>):** Prediction requests naturally lead to results.  
+- **`Monitor Model Performance` → `Trigger Retraining on Performance Drop` (<<includes>>):** Retraining is triggered when performance issues are detected.  
+- **`Provide Feedback on Prediction` → `Trigger Retraining from Feedback` (<<includes>>):** Critical feedback can initiate model retraining.  
+
+### **Extends Relationships**  
+- **`Review Logs and System Insights` → `Manage Data Storage` (<<extends>>):** Reviewing insights may suggest adjustments to data storage strategies.
+
+## Conclusion
+This **Use Case Diagram** effectively visualizes the key interactions and system behavior for the **Kursach V8 2.5L Twin-Turbo GT3S** project. By incorporating smooth rounded lines, it offers a clearer, more visually appealing structure that highlights both current features and planned improvements.
 
 
