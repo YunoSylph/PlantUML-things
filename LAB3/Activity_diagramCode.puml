@@ -1,0 +1,72 @@
+@startuml
+title Activity Diagram for Kursach V8 2.5L Twin-Turbo GT3S (With Planned Functionality)
+
+start
+
+' ---------------------------
+' Data Ingestion Process
+' ---------------------------
+:Load Raw Data;
+:Clean Data;
+:Extract Features;
+:Save Processed Data;
+
+' Decision for Data Flow
+if (Processed Data Ready?) then (Yes)
+    :Store Data in Data Storage;
+else (No)
+    stop
+endif
+
+' ---------------------------
+' Model Training Process
+' ---------------------------
+:Prepare Data for Training;
+:Train Model;
+:Save Trained Model;
+
+' Decision for Model Readiness
+if (Model Ready?) then (Yes)
+    :Deploy Model for Prediction;
+else (No)
+    stop
+endif
+
+' ---------------------------
+' Inference Process
+' ---------------------------
+:Wait for Prediction Request;
+:Receive Prediction Request;
+:Load Trained Model;
+:Generate Prediction;
+:Send Prediction Result;
+
+' Logging Predictions for Monitoring
+:Log Prediction Data;
+
+' ---------------------------
+' Monitoring and Feedback Loop
+' ---------------------------
+:Monitor System Performance;
+if (Performance Degrades?) then (Yes)
+    :Generate Alert;
+    :Trigger Feedback Loop;
+    :Initiate Model Retraining;
+    :Update Model with New Training;
+else (No)
+    :Continue Monitoring;
+endif
+
+' ---------------------------
+' User Feedback Integration
+' ---------------------------
+:Receive User Feedback;
+if (Feedback Requires Retraining?) then (Yes)
+    :Trigger Feedback Loop;
+    :Initiate Model Retraining;
+    :Update Model with New Training;
+endif
+
+stop
+
+@enduml
