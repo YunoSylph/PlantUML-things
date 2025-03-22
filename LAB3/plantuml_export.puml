@@ -1,0 +1,56 @@
+@startuml
+title State and Transition Diagram for Kursach V8 2.5L Twin-Turbo GT3S
+
+[*] --> Data_Ingestion : System Initialized
+
+' ----------------------
+' Data Processing States
+' ----------------------
+state Data_Ingestion {
+    [*] --> Data_Loading
+    Data_Loading --> Data_Cleaning : Raw Data Loaded
+    Data_Cleaning --> Feature_Extraction : Data Cleaned
+    Feature_Extraction --> Data_Stored : Features Extracted
+    Data_Stored --> [*] : Processed Data Saved
+}
+
+' ----------------------
+' Model Training States
+' ----------------------
+state Model_Training {
+    [*] --> Data_Preparation
+    Data_Preparation --> Model_Training_In_Progress : Data Ready
+    Model_Training_In_Progress --> Model_Training_Completed : Model Trained
+    Model_Training_Completed --> [*] : Model Ready
+}
+
+' ----------------------
+' Inference States
+' ----------------------
+state Inference_Process {
+    [*] --> Awaiting_Requests
+    Awaiting_Requests --> Prediction_In_Progress : Prediction Request Received
+    Prediction_In_Progress --> Prediction_Completed : Prediction Made
+    Prediction_Completed --> [*] : Results Sent to UI
+}
+
+' ----------------------
+' Monitoring and Feedback Loop
+' ----------------------
+state Monitoring_Feedback {
+    [*] --> Monitoring_Active
+    Monitoring_Active --> Performance_Alert : Performance Degradation Detected
+    Performance_Alert --> Feedback_Triggered : Feedback Triggered
+    Feedback_Triggered --> Model_Training_In_Progress : Model Retraining
+}
+
+' ----------------------
+' System Transitions
+' ----------------------
+Data_Ingestion --> Model_Training : Processed Data Ready
+Model_Training --> Inference_Process : Model Deployed
+Inference_Process --> Monitoring_Feedback : Log Data Captured
+Monitoring_Feedback --> Model_Training : Retraining Triggered
+Monitoring_Feedback --> [*] : System Stable
+
+@enduml
