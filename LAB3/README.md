@@ -343,4 +343,155 @@ This detailed **Activity Diagram** effectively visualizes the workflow of your *
 
 With planned functionality like automated monitoring, feedback handling, and retraining, this system is designed to stay adaptive, efficient, and high-performing over time.
 
-This design offers clear decision points, efficient data flow, and flexible enhancement paths for future development. 🚀
+# Sequence Diagram for Kursach V8 2.5L Twin-Turbo GT3S (With Planned Functionality)
+
+This document provides a detailed explanation of the **Sequence Diagram** for the **Kursach V8 2.5L Twin-Turbo GT3S** project. The diagram outlines the system's interactions across its core functionalities while integrating planned improvements such as performance monitoring and user feedback-driven retraining.
+
+---
+
+## Overview
+This sequence diagram visualizes interactions between the system’s core components:
+
+- **Data Ingestion Process**
+- **Model Training Process**
+- **Prediction Process**
+- **Monitoring and Feedback Process**
+- **User Feedback Integration**
+
+The diagram illustrates the flow of data, interactions between system components, and key decision points for system adaptability.
+
+---
+
+## Detailed Process Breakdown
+
+### **1. Data Ingestion Process**
+This phase outlines the process of preparing data before model training.
+
+- **User Uploads Data:**  
+   The **User** submits raw malware data through the **UI**.
+- **Data Preprocessing:**  
+   The **Notebook** processes the raw data by:
+   - Cleaning the data
+   - Extracting features
+   - Preparing it for model training
+- **Data Storage:**  
+   The processed data is saved in the **Storage** system to ensure availability for both training and future reference.
+- **Model Training:**  
+   The **Notebook** sends the processed data to the **Model** component for training.
+- **Saving Trained Model:**  
+   The newly trained model is stored in the **Storage** system for deployment.
+
+---
+
+### **2. Prediction Process**
+This phase manages the model's prediction workflow.
+
+- **User Requests Prediction:**  
+   The **User** submits a prediction request through the **UI**.
+- **Inference Process:**  
+   The **Inference Engine** retrieves the trained model from the **Model** component and generates predictions based on the input data.
+- **Result Delivery:**  
+   The prediction result is sent back to the **UI** for the user to review.
+
+---
+
+### **3. Monitoring and Feedback Process**
+This phase ensures the model's performance remains optimal.
+
+- **Prediction Logging:**  
+   Each prediction's result is logged in the **Monitoring & Logging** system for analysis.
+- **Monitoring:**  
+   The **Monitor** continuously tracks system performance to detect performance degradation.
+- **Performance Alert (Decision Point):**  
+   - If performance issues are detected, the **Monitor** triggers the **Feedback Loop** for model retraining.
+   - If performance remains stable, monitoring continues without intervention.
+- **Model Retraining:**  
+   The **Feedback Loop** retrains the model using updated data, and the improved model is saved back to the **Storage** system.
+
+---
+
+### **4. User Feedback Integration**
+This phase leverages user insights to improve model performance.
+
+- **User Feedback Submission:**  
+   Users can submit feedback through the **UI** if they identify incorrect predictions or inconsistencies.
+- **Feedback Analysis (Decision Point):**  
+   - If feedback indicates that retraining is necessary, the **Feedback Loop** initiates model retraining.
+   - If retraining is not required, the feedback is logged for future reference.
+
+---
+
+## Key Decision Points
+Several decision points guide the system’s adaptive behavior:
+
+- **Processed Data Ready?** — Ensures data quality before proceeding to model training.  
+- **Model Ready?** — Ensures only successfully trained models are deployed for prediction.  
+- **Performance Degrades?** — Triggers automated retraining if performance drops.  
+- **Feedback Requires Retraining?** — Determines if user feedback necessitates immediate retraining or if it should be logged for future analysis.  
+
+---
+
+## Key Planned Functionalities Integrated
+✅ **Automated Monitoring:** Ensures system performance is tracked in real-time, with automated alerts for degraded performance.  
+✅ **Feedback Loop for Retraining:** Combines system alerts and user insights to trigger model retraining when necessary.  
+✅ **User Feedback Handling:** Ensures the system can adapt to real-world insights provided by users.  
+✅ **Data Storage Optimization:** Ensures processed data, trained models, and logs are securely archived for analysis and future improvements.  
+
+---
+
+## Why Does This Version Exclude Object Lifetimes?
+- **Improved Clarity:** Removing activation bars enhances readability for a broader audience, including non-technical stakeholders.  
+- **Focus on Core Logic:** The simplified design emphasizes system logic, data flow, and key interactions without unnecessary complexity.  
+- **Efficient Visualization:** With fewer visual elements, the diagram is concise yet informative.  
+
+![Component_Diagram](Sequence_diagram.png)
+
+This refined **Sequence Diagram** effectively visualizes the interactions between system components and the flow of data through the system. By removing object lifetimes and focusing on streamlined interactions, the diagram presents a clear, concise view of both the system’s core workflow and planned improvements.
+
+
+## 4. Use Case Diagram
+
+# Use Case Diagram for Kursach V8 2.5L Twin-Turbo GT3S (With Planned Functionality)
+
+This document explains the **Use Case Diagram** for the **Kursach V8 2.5L Twin-Turbo GT3S** project. The diagram outlines the system's core functionalities along with planned enhancements, designed with smooth rounded lines to improve readability and ensure a professional visual flow.
+
+---
+
+## Overview
+The **Use Case Diagram** illustrates the interactions between system actors and key functionalities. It combines:
+
+✅ **Core Functionalities** — Essential processes for data ingestion, model training, and prediction.  
+✅ **Planned Future Enhancements** — Advanced features like automated monitoring, retraining triggers, and user feedback integration.  
+✅ **Improved Visual Flow** — Rounded lines for cleaner and clearer connections.
+
+---
+
+## Actors
+### **1. User**
+The **User** interacts with the system primarily through the **User Interface (UI)/API** for data submission, prediction requests, and feedback.
+
+### **2. Administrator**
+The **Administrator** manages core system functionalities like data preprocessing, model training, performance monitoring, and data storage.
+
+---
+
+## Core Use Cases (Current Functionality)
+✅ **Upload Raw Data:** Users submit malware data for analysis.  
+✅ **Preprocess Data:** Admins clean, transform, and extract features from raw data.  
+✅ **Train Model:** Admins train the malware detection model.  
+✅ **Save Trained Model:** Admins store the trained model for prediction.  
+✅ **Request Prediction:** Users request predictions via the UI/API.  
+✅ **Receive Prediction Result:** Users receive prediction results after submission.
+
+---
+
+## Planned Future Functionalities (Enhanced System Behavior)
+✅ **Monitor Model Performance:** Admins track model performance metrics to detect accuracy degradation.  
+✅ **Trigger Retraining on Performance Drop:** Admins initiate retraining when performance issues arise.  
+✅ **Provide Feedback on Prediction:** Users provide feedback regarding prediction quality.  
+✅ **Trigger Retraining from Feedback:** Admins or automated logic initiate retraining based on user feedback.  
+✅ **Review Logs and System Insights:** Admins review system logs and model insights for performance analysis.  
+✅ **Manage Data Storage:** Admins control data archiving and retrieval to ensure organized data management
+
+
+
