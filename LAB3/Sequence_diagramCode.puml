@@ -1,0 +1,58 @@
+@startuml
+title Sequence Diagram for Kursach V8 2.5L Twin-Turbo GT3S (With Planned Functionality)
+
+actor User
+participant "User Interface / API" as UI
+participant "Inference Engine" as Inference
+participant "malware_detection_model.h5 (ML Model)" as Model
+participant "CourseWork_ver7.ipynb (Data Preprocessing)" as Notebook
+participant "Data Storage" as Storage
+participant "Monitoring & Logging" as Monitor
+participant "Feedback Loop" as Feedback
+
+' ---------------------------
+' Data Ingestion Process
+' ---------------------------
+User -> UI: Upload Raw Data
+UI -> Notebook: Send Raw Data
+Notebook -> Storage: Save Processed Data
+Storage --> Notebook: Processed Data Ready
+Notebook -> Model: Train Model
+Model -> Storage: Save Trained Model
+
+' ---------------------------
+' Prediction Process
+' ---------------------------
+User -> UI: Request Prediction
+UI -> Inference: Send Prediction Request
+Inference -> Model: Load Trained Model
+Model --> Inference: Return Prediction
+Inference -> UI: Return Prediction Result
+UI -> User: Display Prediction Result
+
+' ---------------------------
+' Monitoring and Feedback Process
+' ---------------------------
+Inference -> Monitor: Log Prediction Data
+Monitor -> Monitor: Monitor Performance
+alt Performance Degrades
+    Monitor -> Feedback: Trigger Feedback Loop
+    Feedback -> Model: Retrain Model
+    Model -> Storage: Save Updated Model
+else Stable Performance
+    Monitor -> Monitor: Continue Monitoring
+end
+
+' ---------------------------
+' User Feedback Integration
+' ---------------------------
+User -> UI: Provide Feedback
+UI -> Feedback: Send Feedback Data
+alt Feedback Requires Retraining
+    Feedback -> Model: Retrain Model
+    Model -> Storage: Save Updated Model
+else Feedback Logged
+    Feedback -> Monitor: Log Feedback for Future Analysis
+end
+
+@enduml
